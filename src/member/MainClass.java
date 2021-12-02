@@ -27,17 +27,15 @@ public class MainClass {
 //			System.out.println(d);
 //		}
 		
-//		for(MemberDto d:list) {
-//			dao.insert(d);
-//		}
-		
+		for(MemberDto d:list) {
+			dao.insert(d);
+		}
 		//데이터 보기
-		
-//		ArrayList<MemberDto>slist = dao.selectAll();//전체 다보기
 		dao.selectOne("정석원");//하나만 보기
+		ArrayList<MemberDto>slist = dao.selectAll();//전체 다보기
 
 		//데이터 수정
-//		dao.update(5);
+		dao.update(5);
 		
 		
 	}
