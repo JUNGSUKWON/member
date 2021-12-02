@@ -17,6 +17,7 @@ public class MainClass {
 		String filePath="C:\\dev\\file\\전공정보.txt";
 		//멤버 정보 DB활용
 		MemberDaoImpl dao = new MemberDaoImpl();
+		MemberDto dto = new MemberDto();
 //		
 		
 //		System.out.println("쉼표로 구분되는 데이터 갯수: "+spData.length);
@@ -27,16 +28,20 @@ public class MainClass {
 //			System.out.println(d);
 //		}
 		
-		for(MemberDto d:list) {
-			dao.insert(d);
-		}
-		//데이터 보기
+//		for(MemberDto d:list) {
+//			dao.insert(d);
+//		}
+//		//데이터 보기
 		dao.selectOne("정석원");//하나만 보기
-		ArrayList<MemberDto>slist = dao.selectAll();//전체 다보기
 
 		//데이터 수정
-		dao.update(5);
+		MemberDto updateDto = new MemberDto();
+		updateDto.setEmail("sumin@gmail.com");
+		updateDto.setNum(dao.selectNameEmail("유수민","na"));
+		dao.update(updateDto);
 		
+		
+		ArrayList<MemberDto>slist = dao.selectAll();//전체 다보기
 		
 	}
 }

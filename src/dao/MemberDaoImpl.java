@@ -59,9 +59,7 @@ public class MemberDaoImpl implements MemberDao {
 				}
 			} catch (Exception e2) {}
 		}
-
 	}
-
 
 	@Override
 	public void selectOne(String name) {
@@ -91,8 +89,6 @@ public class MemberDaoImpl implements MemberDao {
 		
 	}
 
-
-
 	@Override
 	public ArrayList<MemberDto> selectAll() {
 		String sql = "select * from member";
@@ -121,28 +117,53 @@ public class MemberDaoImpl implements MemberDao {
 
 
 	@Override
-	public void update(int num) {
-		//UPDATE naver_info SET title='[속보]경남도, 궤도운송시설물 긴급 안전점검 실시' WHERE  num=3;
-
-		String sql = "UPDATE member SET major=? WHERE  num= ?";
+	public void update(MemberDto dto) {
+		String sql = "UPDATE member SET email = ? WHERE  num = ?";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,"심리학과");
-			pstmt.setInt(2,num);
+			pstmt.setString(1, dto.getEmail());
+			pstmt.setInt(2, dto.getNum());
 			pstmt.executeUpdate();
-			System.out.println("수정된 번호: " + num);
+//			System.out.println("수정된 id: " + id);
 
 		} catch (Exception e) {
 			System.out.println("update 예외 발생");
-		}    finally {
+		} finally {
 			try {
-				if(pstmt!=null && !pstmt.isClosed()) {
+				if (pstmt != null && !pstmt.isClosed()) {
 					pstmt.close();
 				}
-			} catch (Exception e2) {}
+			} catch (Exception e2) {
+			}
 		}
 
+	}
+	
+	public int selectNameEmail(String name, String email) {
+		String sql = "SELECT num FROM member WHERE name = ? AND email = ?";
+		int num = 0;
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				num = rs.getInt("num");
+			}
+
+		} catch (Exception e) {
+			System.out.println("SELECT 메서드 예외발생");
+		} finally {
+			try {
+				if (pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e2) {
+			}
+		}
+		return num;
 	}
 
 

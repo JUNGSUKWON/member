@@ -19,7 +19,9 @@ public interface MemberDao {
 	//데이터를 수정
 //	public void update(MemberDto dto);
 
-	public void update(int num);
+
+
+	public void update(MemberDto dto);
 	
 	
 	
